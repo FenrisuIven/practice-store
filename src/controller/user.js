@@ -10,3 +10,15 @@ module.exports.getMainPage = (req, res) => {
     });
   });
 }
+
+module.exports.getCart = (req, res) => {
+  res.render('cart.pug', {
+    pageTitle: 'Cart'
+  });
+}
+
+module.exports.getOrders = (req, res) => {
+  res.render('orders.pug', {
+    pageTitle: 'Orders'
+  });
+}
