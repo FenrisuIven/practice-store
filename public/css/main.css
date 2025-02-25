@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+  font-weight: 400;
+}
+
+.main-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+
+.main-header__nav {
+  background-color: #05182b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .logo {
+    padding: 0 1rem;
+  }
+}
+
+.main-header__nav-list {
+  list-style: none;
+  display: flex;
+}
+
+.main-header__nav-item.full-width {
+  width: 100%;
+}
+
+.main-header__nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .logo {
+    padding: 0.5rem 0 0.3rem 0;
+  }
+
+  a {
+    padding: 1rem;
+    text-decoration: none;
+    color: #fff;
+
+    &&:hover {
+      background: -webkit-linear-gradient(#f9ac36, #ee4846);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}
+
+.main-header__nav-item.search-bar__container {
+  padding: 1rem;
+  column-gap: 10px;
+}
+
+.main-header__nav-item .search-bar {
+  padding: 0.7rem 0.3rem;
+  width: 30%;
+
+  border: 1px solid #347cc0;
+  border-radius: 8px;
+  background: #092239;
+  color: #347cc0;
+  font-size: 1rem;
+
+  &&:hover {
+    border-color: #fff;
+    color: #fff;
+  }
+}
+
+.main-header__nav-item .search-icon {
+  stroke: #347cc0;
+
+  &&:hover {
+    cursor: pointer;
+
+    path {
+      stroke: white;
+    }
+  }
+}
+
+.product-card {
+  padding: 1rem 0;
+}
