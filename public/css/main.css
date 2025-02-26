@@ -5,6 +5,10 @@
   font-weight: 400;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .main-header {
   position: sticky;
   top: 0;

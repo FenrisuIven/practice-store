@@ -1,6 +1,8 @@
-include ./layout/header.pug
+extends ./layout/header.pug
 
-  block content
-    include ./layout/products-display.pug
-    if (displayMoreButton)
-      button.more-btn ...
+block styles
+  link(rel="stylesheet", href="css/product-cards.css")
+  link(rel="stylesheet", href="css/buttons.css")
+
+block content
+  include ./layout/products-display.pug

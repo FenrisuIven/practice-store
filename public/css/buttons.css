@@ -1,0 +1,35 @@
+.more-btn {
+  line-height: 0;
+  border: none;
+  outline: none;
+  position: relative;
+  z-index: 1;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #f9ae35, #ee4646);
+  cursor: pointer;
+  place-content: center;
+  padding: 1rem;
+
+  &&::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background-color: white;
+    border-radius: 4px;
+    z-index: -1;
+  }
+
+  path {
+    stroke: #ee4646;
+    stroke-width: 0.5;
+    fill: none;
+  }
+}
+
+.more-btn:hover {
+  background: linear-gradient(90deg, #ee4646, #f9ae35);
+
+  path {
+    stroke: #f9ae35;
+  }
+}
