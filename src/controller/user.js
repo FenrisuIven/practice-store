@@ -1,21 +1,19 @@
 const rootPath = require('../util/rootPath');
-const { readFromFile } = require('../util/readFromFile');
+const { queryTable } = require('../util/queryTable');
 
-module.exports.getMainPage = (req, res) => {
-  readFromFile(rootPath('./data/data.json'), (prodsArray) => {
-    let prodsToDisplay = prodsArray;
-    let displayMoreButton = false;
+module.exports.getMainPage = async (req, res) => {
+  const queryRes = await queryTable('SELECT * FROM product LIMIT 6');
+  const products = queryRes.rows ? queryRes.rows : [];
+  const displayMoreButton = products.length > 5;
 
-    if (prodsArray.length > 5) {
-      prodsToDisplay = prodsArray.slice(0, 5);
-      displayMoreButton = true;
-    }
+  if (displayMoreButton) {
+    products.splice(5, 1);
+  }
 
-    res.render('main-page.pug', {
-      pageTitle: 'Main',
-      prods: prodsToDisplay,
-      displayMoreButton
-    });
+  res.render('main-page.pug', {
+    pageTitle: 'Main',
+    prods: products,
+    displayMoreButton
   });
 }
 
