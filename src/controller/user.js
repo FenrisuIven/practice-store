@@ -2,11 +2,19 @@ const rootPath = require('../util/rootPath');
 const { readFromFile } = require('../util/readFromFile');
 
 module.exports.getMainPage = (req, res) => {
-  readFromFile(rootPath('./data/data.json'), (data) => {
-    console.log(req.originalUrl)
+  readFromFile(rootPath('./data/data.json'), (prodsArray) => {
+    let prodsToDisplay = prodsArray;
+    let displayMoreButton = false;
+
+    if (prodsArray.length > 5) {
+      prodsToDisplay = prodsArray.slice(0, 5);
+      displayMoreButton = true;
+    }
+
     res.render('main-page.pug', {
       pageTitle: 'Main',
-      prods: data
+      prods: prodsToDisplay,
+      displayMoreButton
     });
   });
 }
