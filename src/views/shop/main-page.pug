@@ -1,8 +1,9 @@
-extends ./layout/header.pug
+extends ../layout/header.pug
 
 block styles
   link(rel="stylesheet", href="css/product-cards.css")
   link(rel="stylesheet", href="css/buttons.css")
 
 block content
-  include ./layout/products-display.pug
+  each category in categories
+    include ../layout/products-display.pug

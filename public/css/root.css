@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+
+  --root-dark-blue: #05182b;
+  --root-blue: #347cc0;
+  --root-yellow: #f9ac36;
+  --root-red: #ee4846;
+
+  --rgb-root-dark-blue: 5, 24, 43;
+  --rgb-root-blue: 52, 124, 192;
+  --rgb-root-yellow: 249, 172, 54;
+  --rgb-root-red: 238, 72, 70;
+}
+
+body {
+  height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  position: absolute;
+  margin-top: 75.38px;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  place-self: flex-start;
+}
+
+.container {
+  width: 75%;
+  max-width: 75%;
+  justify-items: center;
+  align-items: center;
+  place-self: center;
+  padding: 1rem;
+
+  .full-height {
+    place-self: start;
+  }
+}
