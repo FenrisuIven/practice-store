@@ -1,14 +1,17 @@
-.more-btn {
+.button {
   line-height: 0;
   border: none;
   outline: none;
+  cursor: pointer;
+  place-content: center;
+  padding: 1rem;
+}
+
+.more-btn {
   position: relative;
   z-index: 1;
   border-radius: 5px;
   background: linear-gradient(90deg, #f9ae35, #ee4646);
-  cursor: pointer;
-  place-content: center;
-  padding: 1rem;
 
   &&::before {
     content: "";
@@ -31,5 +34,15 @@
 
   path {
     stroke: #f9ae35;
+  }
+}
+
+.buy-btn {
+  display: block;
+  border: 1px solid var(--root-gray);
+  content: "";
+
+  &&:hover {
+    background-color: rgba(var(--rgb-root-gray), 0.2);
   }
 }
