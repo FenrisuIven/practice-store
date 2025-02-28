@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 
 const sequel = require('../util/database');
 
-//TODO: check if types are correct
 const Product = sequel.define('product', {
   id: {
     type: Sequelize.INTEGER,

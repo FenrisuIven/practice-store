@@ -3,7 +3,7 @@ const Product = require('../models/product');
 module.exports.getMainPage = async (req, res) => {
   Product.findAll({
     attributes: Product.getAttributesKeys({
-      exclude: ['id', 'updatedAt', 'description']
+      exclude: ['updatedAt', 'description']
     }),
     order: [['updatedAt', 'DESC']]
   })

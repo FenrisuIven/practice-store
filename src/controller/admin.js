@@ -9,12 +9,13 @@ exports.getAddProduct = (req, res) => {
 
 exports.postAddProduct = (req, res) => {
   const { title, imageUrl, price, description, category } = req.body;
-  Product.create({
+  req.user.createProduct({
     title,
     price,
     imageUrl,
     description,
-    category
+    category,
+    rating: 0
   }).then(res => {
     console.log(res);
   }).catch(err => {
