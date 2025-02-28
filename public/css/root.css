@@ -9,11 +9,13 @@
   --root-blue: #347cc0;
   --root-yellow: #f9ac36;
   --root-red: #ee4846;
+  --root-gray: #c0c0c0;
 
   --rgb-root-dark-blue: 5, 24, 43;
   --rgb-root-blue: 52, 124, 192;
   --rgb-root-yellow: 249, 172, 54;
   --rgb-root-red: 238, 72, 70;
+  --rgb-root-gray: 192, 192, 192;
 }
 
 body {

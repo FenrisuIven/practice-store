@@ -1,0 +1,10 @@
+.star {
+  width: 1rem;
+  height: auto;
+
+
+  #grad stop {
+    stop-color: var(--root-yellow);
+  }
+
+}
