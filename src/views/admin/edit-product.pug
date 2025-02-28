@@ -1,0 +1,23 @@
+extends ../layout/header.pug
+
+block styles
+  link(rel="stylesheet", href="/css/product-forms.css")
+
+block content 
+  form.container.product-form(action=(`/admin/${product ? "edit" : "add"}-product${product ? `/${productId}` : ""}`) method='POST')
+    .product-form__input-field
+      label(for="title") Title
+      input#title(type="text" name="title" value=(product ? product.title : ''))
+    .product-form__input-field
+      label(for="category") Category
+      input#category(type="text" name="category" value=(product ? product.category : '')) 
+    .product-form__input-field
+      label(for="imageUrl") Image Url
+      input#imageUrl(type="text" name="imageUrl" value=(product ? product.imageUrl : '')) 
+    .product-form__input-field
+      label(for="price") Price
+      input#price(type="number" name="price" min="0" step=".01" value=(product ? product.price : '')) 
+    .product-form__input-field
+      label(for="description") Description
+      textarea#description(name="description") #{(product ? product.description : '')}
+    button.btn(type="submit") #{buttonCaption}
