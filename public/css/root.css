@@ -48,3 +48,20 @@ main {
     place-self: start;
   }
 }
+
+.section-container {
+  display: grid;
+  grid-template-areas:
+    "title title"
+    "products button";
+
+  row-gap: 1rem;
+
+  .section-title {
+    grid-area: title;
+    justify-self: start;
+
+    padding: 0.3rem 1rem;
+    font-size: 1.6rem;
+  }
+}

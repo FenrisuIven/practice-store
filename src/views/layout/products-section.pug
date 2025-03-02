@@ -1,0 +1,15 @@
+include components/star.pug
+include components/product-card.pug
+
+.container.section-container 
+  span.section-title Mobile phones and accessories
+  if prods.length > 0
+    .products-container
+      for product in prods
+        + productCard(product)
+    if (displayMoreButton)
+      button.button.more-btn(width="35px" height="42px") 
+        span Show More
+
+  else
+    h2 ...

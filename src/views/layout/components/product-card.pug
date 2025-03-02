@@ -1,0 +1,19 @@
+mixin productCard(product)
+  .product-card
+    .product-card__image
+      img(src=(product.imageUrl), alt=(product.title))
+    a.product-card__title #{product.title}
+    span.product-card__price #{Number(product.price).toLocaleString('en-US', {style: 'currency', currency: 'USD'})}
+
+    div.product-card__rating(data-fill-amounts='[]')
+      for fillAmount in starSettings.fillAmounts
+        + star(fillAmount)
+
+    .product-card__details
+      if(displayDescription)
+        span.product-card__description #{product.description}
+      .product-card__timestamps
+        span.product-card_timestamp-posted #{product.creationDate}
+        span.product-card_timestamp-posted #{product.creationTime}
+      .product-card__actions()
+        button.button.buy-btn() 

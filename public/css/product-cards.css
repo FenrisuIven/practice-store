@@ -1,7 +1,13 @@
 .products-container {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(5, minmax(10rem, 13rem)) 6rem;
-  flex-basis: 2rem;
+  grid-template-columns: repeat(5, minmax(10rem, auto));
+  grid-area: products;
+
+  .more-btn {
+    grid-area: button;
+  }
+
 }
 
 .product-card {
@@ -13,7 +19,7 @@
   border-right: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.products-container div:nth-last-child(-n + 2) {
+.products-container div:nth-last-child(-n + 1) {
   border-right: 0;
 }
 

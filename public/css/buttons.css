@@ -8,32 +8,32 @@
 }
 
 .more-btn {
-  position: relative;
-  z-index: 1;
-  border-radius: 5px;
-  background: linear-gradient(90deg, #f9ae35, #ee4646);
+  width: max-content;
+  min-width: 10rem;
+  padding: 1.3rem 1.5rem;
+  box-sizing: border-box;
 
-  &&::before {
-    content: "";
-    position: absolute;
-    inset: 1px;
-    background-color: white;
-    border-radius: 4px;
-    z-index: -1;
-  }
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(0.7rem);
 
-  path {
-    stroke: #ee4646;
-    stroke-width: 0.5;
-    fill: none;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background-image: linear-gradient(white, white), linear-gradient(90deg, var(--root-yellow), var(--root-red));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+
+  span {
+    color: black;
   }
 }
 
 .more-btn:hover {
-  background: linear-gradient(90deg, #ee4646, #f9ae35);
+  background-image: linear-gradient(white, white), linear-gradient(90deg, #ee4646, #f9ae35);
 
-  path {
-    stroke: #f9ae35;
+  span {
+    background-image: linear-gradient(45deg, var(--root-red), var(--root-yellow));
+    background-clip: text;
+    color: transparent;
   }
 }
 
