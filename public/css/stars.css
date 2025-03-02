@@ -2,9 +2,10 @@
   width: 1rem;
   height: auto;
 
-
-  #grad stop {
+  .grad stop.fill {
     stop-color: var(--root-yellow);
   }
-
+  .grad stop.background {
+    stop-color: var(--root-gray);
+  }
 }

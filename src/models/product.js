@@ -26,10 +26,10 @@ const Product = sequel.define('product', {
     allowNull: false
   },
   rating: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DECIMAL,
     allowNull: false,
     validate: {
-      max: 10,
+      max: 5,
       min: 0
     }
   },

@@ -5,9 +5,10 @@ mixin productCard(product)
     a.product-card__title #{product.title}
     span.product-card__price #{Number(product.price).toLocaleString('en-US', {style: 'currency', currency: 'USD'})}
 
-    div.product-card__rating(data-fill-amounts='[]')
-      for fillAmount in starSettings.fillAmounts
-        + star(fillAmount)
+    div.product-card__rating(data-rating-value=(product.rating))
+      - for(let i = 0; i < 5; i++) {
+        + star() 
+      - }
 
     .product-card__details
       if(displayDescription)
