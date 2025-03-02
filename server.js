@@ -8,6 +8,8 @@ const adminRoutes = require('./src/routes/admin');
 const sequel = require('./src/util/database');
 const Product = require('./src/models/product');
 const User = require('./src/models/user');
+const Cart = require('./src/models/cart');
+const CartItem = require('./src/models/cartItem');
 
 const app = express();
 
@@ -33,6 +35,10 @@ Product.belongsTo(User, {
   onDelete: 'CASCADE'
 });
 User.hasMany(Product)
+User.hasOne(Cart);
+Cart.belongsTo(User);
+Cart.belongsToMany(Product, { through: CartItem });
+Product.belongsToMany(Cart, { through: CartItem });
 
 sequel.sync()
   .then(() => {
@@ -48,6 +54,15 @@ sequel.sync()
     return Promise.resolve(user);
   })
   .then(user => {
+    return user.getCart();
+  })
+  .then(cart => {
+    if (!cart) {
+      return user.createCart();
+    }
+    return Promise.resolve(cart);
+  })
+  .then(cart => {
     app.listen(3000);
   })
   .catch(err => {

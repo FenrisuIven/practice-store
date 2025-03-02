@@ -23,6 +23,11 @@
   font-size: 1.2rem;
 }
 
+.product-card__title:hover {
+  color: var(--root-red);
+  cursor: pointer;
+}
+
 .product-card__image {
   width: 100px;
   height: 100px;

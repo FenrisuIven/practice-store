@@ -48,3 +48,18 @@ module.exports.getAttributesKeys = (params) => {
   }
   return keys;
 }
+
+module.exports.getProductsToDisplay = (products) => {
+  const productsToDislpay = products.map(product => {
+    const creationDateTime = product.dataValues.createdAt.toLocaleString().split(', ');
+    const creationFullDate = creationDateTime[0];
+    const creationHoursMinutes = creationDateTime[1].split(':').slice(0, 2).join(':');
+    console.log(creationHoursMinutes)
+    return {
+      ...product.dataValues,
+      creationDate: creationFullDate,
+      creationTime: creationHoursMinutes
+    }
+  })
+  return productsToDislpay;
+}

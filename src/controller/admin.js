@@ -25,8 +25,9 @@ exports.postAddProduct = (req, res) => {
 }
 
 exports.getEditProduct = (req, res) => {
-  Product.findByPk(req.params.productId)
-    .then(product => {
+  req.user.getProducts({ where: { id: req.params.productId } })
+    .then(products => {
+      const product = products[0];
       if (!product) throw Error('entry not found');
       console.log(product.dataValues)
       res.render('admin/edit-product.pug', {
@@ -41,8 +42,6 @@ exports.getEditProduct = (req, res) => {
 }
 
 exports.postEditProduct = (req, res) => {
-  console.log(1, req.body)
-  console.log(1, req.params)
   Product.update(req.body, {
     where: {
       id: req.params.productId
@@ -51,4 +50,18 @@ exports.postEditProduct = (req, res) => {
     console.log(err);
   });
   res.redirect('/')
+}
+
+exports.getAdminProducts = (req, res) => {
+  req.user.getProducts()
+    .then(products => {
+      const productsToDisplay = Product.getProductsToDisplay(products);
+      res.render('admin/products-list.pug', {
+        pageTitle: `${req.user.username}'s created products`,
+        prods: productsToDisplay,
+        starSettings: {
+          fillAmounts: Array.from({ length: 5 }).fill('100%')
+        }
+      })
+    })
 }

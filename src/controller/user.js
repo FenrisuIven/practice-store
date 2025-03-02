@@ -11,19 +11,7 @@ module.exports.getMainPage = async (req, res) => {
       const displayMoreButton = products.length > 5;
       if (displayMoreButton) products.splice(5, 1);
 
-      //TODO: move somewhere
-      let productsToDisplay = products.map(product => {
-        const creationDateTime = product.dataValues.createdAt.toLocaleString().split(', ');
-        const creationFullDate = creationDateTime[0];
-        const creationHoursMinutes = creationDateTime[1].split(':').slice(0, 2).join(':');
-        console.log(creationHoursMinutes)
-        return {
-          ...product.dataValues,
-          creationDate: creationFullDate,
-          creationTime: creationHoursMinutes
-        }
-      })
-      console.log(productsToDisplay)
+      const productsToDisplay = Product.getProductsToDisplay(products);
 
       const fillAmounts = Array.from({ length: 5 }).fill('100%', 0, 4);
       fillAmounts[4] = '15%';
@@ -49,19 +37,77 @@ module.exports.getMainPage = async (req, res) => {
 
 module.exports.getProduct = (req, res) => {
   const productId = req.params.productId;
-  /*Product.findById(productId).then(products => {
-    const targetProduct = products[0];
+  Product.findByPk(productId).then(product => {
     res.render('product.pug', {
       pageTitle: targetProduct.title,
       product: targetProduct
     });
-  })*/
+  });
 }
 
 module.exports.getCart = (req, res) => {
-  res.render('cart.pug', {
-    pageTitle: 'Cart'
+  req.user.getCart().then(cart => {
+    cart.getProducts()
+      .then(products => {
+        res.render('user/cart.pug', {
+          pageTitle: 'Cart',
+          prods: products,
+          starSettings: {
+            fillAmounts: Array.from({ length: 5 }).fill('100%')
+          }
+        });
+      })
+  }).catch(err => {
+    console.log(err)
   });
+}
+
+module.exports.postAddToCart = (req, res) => {
+  const productId = req.params.productId;
+  console.log({ productId });
+  let fetchedCart;
+
+  req.user.getCart().then(cart => {
+    fetchedCart = cart;
+    return cart.getProducts({
+      where: {
+        id: productId
+      }
+    });
+  }).then(products => {
+    let product;
+    if (products.length > 0) {
+      product = products[0];
+    }
+
+    let newQuantity = 1;
+    if (product) {
+      newQuantity += product.cartItem.quantity;
+      return fetchedCart.addProduct(product, {
+        through: {
+          quantity: newQuantity
+        }
+      });
+    }
+
+    return Product.findByPk(productId)
+      .then(product => {
+        return fetchedCart.addProduct(product, {
+          through: {
+            quantity: newQuantity
+          }
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  })
+    .then(() => {
+      res.redirect(req.get("Referrer") || "/");
+    })
+    .catch(err => {
+      console.log(err)
+    });
 }
 
 module.exports.getOrders = (req, res) => {

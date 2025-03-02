@@ -4,10 +4,11 @@ include components/star.pug
   if prods.length > 0
     for product in prods
       .product-card
-        span.product-card__title #{product.title}
         .product-card__image
           img(src=(product.imageUrl), alt=(product.title))
+        a.product-card__title #{product.title}
         span.product-card__price #{Number(product.price).toLocaleString('en-US', {style: 'currency', currency: 'USD'})}
+
         div.product-card__rating 
           for fillAmount in starSettings.fillAmounts
             + star(fillAmount)
@@ -18,8 +19,8 @@ include components/star.pug
           .product-card__timestamps
             span.product-card_timestamp-posted #{product.creationDate}
             span.product-card_timestamp-posted #{product.creationTime}
-          .product-card__actions
-            a.button.buy-btn(href=(`/add-to-cart/${product.id}`))
+          form.product-card__actions(action=(`/add-to-cart/${product.id}`) method="POST")
+            button.button.buy-btn(type="submit" ) 
     if (displayMoreButton)
       button.button.more-btn
         svg(xmlns="http://www.w3.org/2000/svg" width="35px" height="42px" viewBox="4 3 16 18" fill="#000")
