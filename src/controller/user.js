@@ -62,10 +62,10 @@ module.exports.getCart = (req, res) => {
   });
 }
 
-module.exports.postAddToCart = (req, res) => {
-  const productId = req.params.productId;
-  console.log({ productId });
-  let fetchedCart;
+module.exports.postAddToCart = async (req, res) => {
+  const productId = req.body.productId;
+
+  let prevQuantity;
 
   req.user.getCart().then(cart => {
     fetchedCart = cart;
@@ -74,7 +74,8 @@ module.exports.postAddToCart = (req, res) => {
         id: productId
       }
     });
-  }).then(products => {
+  })
+  .then(products => {
     let product;
     if (products.length > 0) {
       product = products[0];
@@ -82,10 +83,11 @@ module.exports.postAddToCart = (req, res) => {
 
     let newQuantity = 1;
     if (product) {
-      newQuantity += product.cartItem.quantity;
+      prevQuantity = product.cartItem.quantity;
+
       return fetchedCart.addProduct(product, {
         through: {
-          quantity: newQuantity
+          quantity: newQuantity + product.cartItem.quantity
         }
       });
     }
@@ -98,16 +100,34 @@ module.exports.postAddToCart = (req, res) => {
           }
         });
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => err);
   })
-    .then(() => {
-      res.redirect(req.get("Referrer") || "/");
-    })
-    .catch(err => {
-      console.log(err)
+  .then(async data => {
+    const products = await fetchedCart.getProducts({
+      where: {
+        id: productId
+      }
     });
+    return Promise.resolve({
+      product: products[0],
+      data
+    });
+  })
+  .then(result => {
+    const cartItem = result.product.cartItem;
+
+    res.status(200).send(JSON.stringify({ //placeholder response
+      data: result.data[0] === 1 ? {
+        product: result.product,
+        productCartItem: cartItem,
+        amountAdded: prevQuantity < cartItem.quantity ? cartItem.quantity - prevQuantity : 0,
+        newQuantity: cartItem.quantity
+      } : null
+    }));
+  })
+  .catch(err => {
+    console.log(err)
+  });
 }
 
 module.exports.getOrders = (req, res) => {

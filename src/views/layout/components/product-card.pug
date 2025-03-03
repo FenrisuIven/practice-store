@@ -17,4 +17,4 @@ mixin productCard(product)
         span.product-card_timestamp-posted #{product.creationDate}
         span.product-card_timestamp-posted #{product.creationTime}
       .product-card__actions()
-        button.button.buy-btn() 
+        button.button.buy-btn(data-product-id=(product.id))#btn-add-to-cart

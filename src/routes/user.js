@@ -9,6 +9,6 @@ router.get('/', getMainPage);
 router.get('/cart', getCart);
 router.get('/orders', getOrders);
 
-router.post('/add-to-cart/:productId', postAddToCart)
+router.post('/add-to-cart/', postAddToCart)
 
 module.exports = router;
