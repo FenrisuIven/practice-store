@@ -16,11 +16,13 @@ const User = sequel.define('user', {
   email: {
     type: Sequelize.TEXT,
     allowNull: false
+  },
+  password: {
+    type: Sequelize.TEXT,
+    allowNull: false
   }
 }, {
-  timestamps: true,
-  updatedAt: false,
-  createdAt: false
+  timestamps: false
 })
 
 module.exports = User;

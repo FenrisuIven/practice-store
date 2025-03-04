@@ -1,5 +1,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
+const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const rootPath = require('./src/util/rootPath');
 const userRoutes = require('./src/routes/user');
@@ -16,16 +18,34 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(rootPath('public')));
 app.use(express.json());
+app.use(session({
+  secret: 'string to encode data with',
+  store: new SequelizeStore({
+    db: sequel,
+    collection: 'sessions' 
+  }),
+  resave: false,  //session will not be save on every request and response set
+  saveUninitialized: false  //ensure that session is not saved when no changes were made
+//coockie: {...}  //set settings for this session's cookie
+}))
+
 app.set('view engine', 'pug');
 app.set('views', 'src/views')
 
 app.use((req, res, next) => {
-  User.findByPk(1).then(user => {
-    req.user = user;
+  if (req.session.user){
+    User.findByPk(req.session.user.id).then(user => {
+      req.session.isLogged = true;
+      req.user = user;
+      next();
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+  else {
+    req.session.isLogged = false;
     next();
-  }).catch(err => {
-    console.log(err);
-  })
+  }
 })
 
 app.use('/', userRoutes);
@@ -43,27 +63,6 @@ Product.belongsToMany(Cart, { through: CartItem });
 
 sequel.sync()
   .then(() => {
-    return User.findByPk(1)
-  })
-  .then(user => {
-    if (!user) {
-      return User.create({
-        username: 'Fenvi owner',
-        email: 'wowowwowow@gmail.com'
-      })
-    }
-    return Promise.resolve(user);
-  })
-  .then(user => {
-    return user.getCart();
-  })
-  .then(cart => {
-    if (!cart) {
-      return user.createCart();
-    }
-    return Promise.resolve(cart);
-  })
-  .then(cart => {
     app.listen(3000);
   })
   .catch(err => {

@@ -13,21 +13,14 @@ module.exports.getMainPage = async (req, res) => {
 
       const productsToDisplay = Product.getProductsToDisplay(products);
 
-      const fillAmounts = Array.from({ length: 5 }).fill('100%', 0, 4);
-      fillAmounts[4] = '15%';
-      console.log(fillAmounts)
-
       //TODO: add a way to define settings for each rendered product, mainly in products-display.pug itself
       res.render('shop/main-page.pug', {
         pageTitle: 'Main',
+        isLogged: req.session.isLogged,
         prods: productsToDisplay,
         categories: Array.from({ length: 1 }),
         displayCategoryName: true,
-        displayMoreButton,
-
-        starSettings: {
-          fillAmounts
-        }
+        displayMoreButton
       });
     })
     .catch(err => {
@@ -131,7 +124,7 @@ module.exports.postAddToCart = async (req, res) => {
 }
 
 module.exports.getOrders = (req, res) => {
-  res.render('orders.pug', {
+  res.render('user/orders.pug', {
     pageTitle: 'Orders'
   });
 }
