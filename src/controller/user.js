@@ -40,6 +40,7 @@ module.exports.getProduct = (req, res) => {
 
 module.exports.getCart = (req, res) => {
   req.user.getCart().then(cart => {
+    console.log(cart)
     cart.getProducts()
       .then(products => {
         res.render('user/cart.pug', {
