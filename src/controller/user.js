@@ -16,6 +16,7 @@ module.exports.getMainPage = async (req, res) => {
       //TODO: add a way to define settings for each rendered product, mainly in products-display.pug itself
       res.render("shop/main-page.pug", {
         pageTitle: "Main",
+        csrfToken: req.csrfToken(),
         isLogged: req.session.isLogged,
         prods: productsToDisplay,
         categories: Array.from({ length: 1 }),
@@ -33,6 +34,7 @@ module.exports.getProduct = (req, res) => {
   Product.findByPk(productId).then((product) => {
     res.render("product.pug", {
       pageTitle: targetProduct.title,
+      isLogged: req.session.isLogged,
       product: targetProduct,
     });
   });
@@ -42,10 +44,11 @@ module.exports.getCart = (req, res) => {
   req.user
     .getCart()
     .then((cart) => {
-      // console.log(cart);
+      console.log(cart);
       cart.getProducts().then((products) => {
         res.render("user/cart.pug", {
           pageTitle: "Cart",
+          isLogged: req.session.isLogged,
           prods: products,
           starSettings: {
             fillAmounts: Array.from({ length: 5 }).fill("100%"),
@@ -54,7 +57,7 @@ module.exports.getCart = (req, res) => {
       });
     })
     .catch((err) => {
-      // console.log(err);
+      console.log(err);
     });
 };
 
@@ -140,5 +143,6 @@ module.exports.postAddToCart = async (req, res) => {
 module.exports.getOrders = (req, res) => {
   res.render("user/orders.pug", {
     pageTitle: "Orders",
+    isLogged: req.session.isLogged,
   });
 };

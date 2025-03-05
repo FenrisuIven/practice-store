@@ -8,7 +8,7 @@ include components/product-card.pug
       for product in prods
         + productCard(product)
     if (displayMoreButton)
-      button.button.more-btn(width="35px" height="42px") 
+      button.button.outlined.more(width="35px" height="42px") 
         span Show More
 
   else

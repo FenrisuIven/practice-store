@@ -33,7 +33,6 @@ exports.getEditProduct = (req, res) => {
     .then((products) => {
       const product = products[0];
       if (!product) throw Error("entry not found");
-      // console.log(product.dataValues);
       res.render("admin/edit-product.pug", {
         pageTitle: "Edit",
         buttonCaption: "Save Changes",

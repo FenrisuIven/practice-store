@@ -2,6 +2,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const csrf = require("csurf");
 
 const rootPath = require("./src/util/rootPath");
 const userRoutes = require("./src/routes/user");
@@ -35,6 +36,7 @@ app.use(
     unset: "destroy",
   })
 );
+app.use(csrf());
 
 app.set("view engine", "pug");
 app.set("views", "src/views");

@@ -13,6 +13,7 @@ module.exports = {
   getLogin(req, res) {
     res.render("user/login.pug", {
       pageTitle: "Login",
+      csrfToken: req.csrfToken(),
     });
   },
   postLogin(req, res, next) {
@@ -20,7 +21,10 @@ module.exports = {
     const password = req.body.password;
 
     User.findOne({ where: { username } }).then((user) => {
-      if (!user) res.redirect("/login");
+      if (!user) {
+        res.redirect("/login");
+        return;
+      }
 
       bcrypt.compare(password, user.password).then((passwordsMatch) => {
         if (passwordsMatch) {
@@ -35,15 +39,14 @@ module.exports = {
     });
   },
   getLogout(req, res) {
-    console.log(req);
     delete req.session;
-    // res.session.destroy(err => {
-    //  res.redirect('/');
-    // });
     res.redirect("/");
   },
   getRegistration(req, res) {
-    res.render("user/registration.pug");
+    res.render("user/registration.pug", {
+      pageTitle: "Sign Up",
+      csrfToken: req.csrfToken(),
+    });
   },
   async postRegistration(req, res) {
     const username = req.body.username;
@@ -51,38 +54,35 @@ module.exports = {
     const pass = req.body.password;
     const confirmPass = req.body.password;
 
+    if (pass !== confirmPass) return;
+
     const isUserDefined = await User.findOne({ where: { email } })
       .then((user) => {
-        // console.log(user);
         if (user) return true;
-
         return User.findOne({ where: { username } });
       })
       .then((user) => {
-        // console.log(user);
         if (user) return true;
         return false;
       });
 
     if (isUserDefined || pass !== confirmPass) {
-      // console.log(pass !== confirmPass);
-      // console.log(isUserDefined);
-      // console.log("error");
       res.redirect("/register");
       return;
     }
 
     const encryptedPass = await bcrypt.hash(pass, 12);
 
-    const user = new User({
+    User.create({
       username: username,
       email: email,
       password: encryptedPass,
-      cart: { items: [] },
-    });
-    user.createCart();
-    user.save();
-
-    res.redirect("/login");
+    })
+      .then((user) => {
+        return user.createCart();
+      })
+      .then(() => {
+        res.redirect("/login");
+      });
   },
 };

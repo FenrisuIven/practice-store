@@ -1,20 +1,20 @@
-.product-form {
+.form {
   display: grid;
   row-gap: 1rem;
   place-self: center;
 }
 
-.product-form__input-field {
+.form__input-field {
   display: flex;
   flex-direction: column;
   width: 50%;
 }
 
-.product-form__input-field label {
+.form__input-field label {
   padding: 0.2rem 0;
 }
 
-.product-form__input-field input {
+.form__input-field input {
   padding: 0.3rem 0.5rem;
   border: none;
   border-bottom: 1px solid silver;
@@ -25,7 +25,7 @@
   }
 }
 
-.product-form__input-field textarea {
+.form__input-field textarea {
   min-width: 98%;
   min-height: 6rem;
   height: 10rem;

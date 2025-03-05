@@ -4,21 +4,23 @@
   outline: none;
   cursor: pointer;
   place-content: center;
-  padding: 1rem;
+  width: 1rem;
+  text-align: center;
+
+  text-decoration: none;
+  padding: 1.3rem 1.3rem;
 }
 
-.more-btn {
-  width: max-content;
-  min-width: 10rem;
-  padding: 1.3rem 1.5rem;
+.button.outlined {
   box-sizing: border-box;
 
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(0.7rem);
-
   border: 2px solid transparent;
   border-radius: 8px;
-  background-image: linear-gradient(white, white), linear-gradient(90deg, var(--root-yellow), var(--root-red));
+
+  background-image: linear-gradient(white, white),
+    linear-gradient(90deg, var(--root-yellow), var(--root-red));
   background-origin: border-box;
   background-clip: padding-box, border-box;
 
@@ -27,17 +29,24 @@
   }
 }
 
-.more-btn:hover {
-  background-image: linear-gradient(white, white), linear-gradient(90deg, #ee4646, #f9ae35);
+.button.outlined:hover {
+  background-image: linear-gradient(white, white),
+    linear-gradient(90deg, #ee4646, #f9ae35);
 
   span {
-    background-image: linear-gradient(45deg, var(--root-red), var(--root-yellow));
+    background-image: linear-gradient(
+      45deg,
+      var(--root-red),
+      var(--root-yellow)
+    );
     background-clip: text;
+    -webkit-background-clip: text;
     color: transparent;
+    -webkit-text-fill-color: transparent;
   }
 }
 
-.buy-btn {
+.button.buy-btn {
   display: block;
   border: 1px solid var(--root-gray);
   content: "";
@@ -45,4 +54,13 @@
   &&:hover {
     background-color: rgba(var(--rgb-root-gray), 0.2);
   }
+}
+
+.more {
+  min-width: 10rem;
+}
+
+.login,
+.signup {
+  width: 8rem;
 }
