@@ -59,11 +59,20 @@ module.exports.getProductsToDisplay = (products) => {
       .split(":")
       .slice(0, 2)
       .join(":");
-    // console.log(creationHoursMinutes)
+
+    let lastUpdate, updateFullDate, updateHoursMinutes;
+    if (product.dataValues.updatedAt) {
+      lastUpdate = product.dataValues.updatedAt.toLocaleString().split(", ");
+      updateFullDate = lastUpdate[0];
+      updateHoursMinutes = lastUpdate[1].split(":").slice(0, 2).join(":");
+    }
+
     return {
       ...product.dataValues,
       creationDate: creationFullDate,
       creationTime: creationHoursMinutes,
+      updateDate: updateFullDate,
+      updateTime: updateHoursMinutes,
     };
   });
   return productsToDislpay;

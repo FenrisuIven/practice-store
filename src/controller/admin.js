@@ -1,9 +1,11 @@
 const Product = require("../models/product");
 
 exports.getAddProduct = (req, res) => {
-  res.render("admin/edit-product", {
+  res.render("admin/add-product", {
     pageTitle: "Add Product",
-    buttonCaption: "Add Product",
+    csrfToken: req.csrfToken(),
+    isLogged: req.session.isLogged,
+    username: req.user.username,
   });
 };
 
@@ -35,6 +37,7 @@ exports.getEditProduct = (req, res) => {
       if (!product) throw Error("entry not found");
       res.render("admin/edit-product.pug", {
         pageTitle: "Edit",
+        csrfToken: req.csrfToken(),
         buttonCaption: "Save Changes",
         productId: req.params.productId,
         product: product.dataValues,
@@ -53,18 +56,24 @@ exports.postEditProduct = (req, res) => {
   }).catch((err) => {
     // console.log(err);
   });
-  res.redirect("/");
+  res.redirect("/admin/products");
 };
 
 exports.getAdminProducts = (req, res) => {
-  req.user.getProducts().then((products) => {
+  Product.findAll({
+    where: {
+      userId: req.user.id,
+    },
+  }).then((products) => {
+    console.log(products);
     const productsToDisplay = Product.getProductsToDisplay(products);
+    console.log({ productsToDisplay });
     res.render("admin/products-list.pug", {
       pageTitle: `${req.user.username}'s created products`,
-      prods: productsToDisplay,
-      starSettings: {
-        fillAmounts: Array.from({ length: 5 }).fill("100%"),
-      },
+      csrfToken: req.csrfToken(),
+      isLogged: req.session.isLogged,
+      username: req.user.username,
+      products: productsToDisplay,
     });
   });
 };

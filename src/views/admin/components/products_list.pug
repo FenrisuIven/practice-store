@@ -1,0 +1,6 @@
+include ./product-card
+
+mixin productList(products)
+  .products-container.admin
+    for product in products
+      + productCard(product)

@@ -1,8 +1,13 @@
 extends ../layout/header.pug
 
+include ./components/products_list
+
 block styles
-  link(rel="stylesheet", href="/css/product-cards.css")
+  link(rel="stylesheet", href="/css/admin-product-cards.css")
   link(rel="stylesheet", href="/css/buttons.css")
 
 block content
-  include ../layout/products-display.pug
+  + productList(products)
+
+block scripts
+  script(src='/scripts/render-stars.js')

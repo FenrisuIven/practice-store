@@ -1,0 +1,26 @@
+extends ../layout/header.pug
+
+block styles
+  link(rel="stylesheet", href="/css/product-forms.css")
+  link(rel="stylesheet", href="/css/buttons.css")
+
+block content 
+  form.container.product-form(action='/admin/add-product' method='POST')
+    .product-form__input-field
+      label(for="title") Title
+      input#title(type="text" name="title" value='')
+    .product-form__input-field
+      label(for="category") Category
+      input#category(type="text" name="category" value='') 
+    .product-form__input-field
+      label(for="imageUrl") Image Url
+      input#imageUrl(type="text" name="imageUrl" value='') 
+    .product-form__input-field
+      label(for="price") Price
+      input#price(type="number" name="price" min="0" step=".01" value='') 
+    .product-form__input-field
+      label(for="description") Description
+      textarea#description(name="description")
+    input(type="hidden" name="_csrf" value=(csrfToken))
+    button.button(type="submit") Add product
+    

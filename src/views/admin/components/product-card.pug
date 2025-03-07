@@ -1,0 +1,28 @@
+include ../../layout/components/star
+
+mixin productCard(product)
+  form.product-card.admin(action=(`/admin/edit-product/${product.id}`))
+    .product-card__image.admin
+      img(src=(product.imageUrl), alt=(product.title))
+    a.product-card__title.admin #{product.title}
+    span.product-card__price.admin #{Number(product.price).toLocaleString('en-US', {style: 'currency', currency: 'USD'})}
+
+    div.product-card__rating.admin(data-rating-value=(product.rating))
+      - for(let i = 0; i < 5; i++) {
+        + star() 
+      - }
+
+    .product-card__details.admin
+      if(displayDescription)
+        span.product-card__description.admin #{product.description}
+      .product-card__timestamps.admin
+        span Created at:
+        span.product-card_timestamp-posted.admin #{product.creationDate}
+        span.product-card_timestamp-posted.admin #{product.creationTime}
+      .product-card__timestamps.admin
+        span Last updated:
+        span.product-card_timestamp-posted.admin #{product.updateDate}
+        span.product-card_timestamp-posted.admin #{product.updateTime}
+    .product-card__actions.admin
+      button.button.edit-btn(type="submit" data-product-id=(product.id)) Edit
+      button.button.delete-btn(data-product-id=(product.id)) Delete

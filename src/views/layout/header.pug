@@ -6,6 +6,7 @@ html(lang="en")
     meta(name="_csrf" content=(csrfToken))
     title #{pageTitle}
     link(rel="stylesheet", href="/css/header.css")
+    link(rel="stylesheet", href="/css/buttons.css")
     link(rel="stylesheet", href="/css/root.css")
     link(rel="stylesheet", href="/css/stars.css")
     block styles
@@ -28,6 +29,7 @@ html(lang="en")
           a(href="/cart") Cart  
 
           if isLogged
+            a(href="/profile") #{username}
             a(href="/logout") Logout
           else
             a(href="/login") Login

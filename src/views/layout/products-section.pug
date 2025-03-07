@@ -2,7 +2,7 @@ include components/star.pug
 include components/product-card.pug
 
 .container.section-container 
-  span.section-title Mobile phones and accessories
+  span.section-title #{sectionTitle}
   if prods.length > 0
     .products-container
       for product in prods
@@ -12,4 +12,4 @@ include components/product-card.pug
         span Show More
 
   else
-    h2 ...
+    h2 No product were created yet

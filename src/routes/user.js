@@ -6,6 +6,7 @@ const {
   getCart,
   getOrders,
   postAddToCart,
+  getProfile,
 } = require("../controller/user");
 const {
   isAuth,
@@ -22,6 +23,7 @@ router.get("/orders", isAuth, getOrders);
 router.get("/login", getLogin);
 router.get("/logout", isAuth, getLogout);
 router.get("/register", getRegistration);
+router.get("/profile", isAuth, getProfile);
 
 router.post("/add-to-cart/", isAuth, postAddToCart);
 router.post("/login", postLogin);

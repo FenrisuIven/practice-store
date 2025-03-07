@@ -9,15 +9,17 @@ module.exports.getMainPage = async (req, res) => {
   })
     .then((products) => {
       const displayMoreButton = products.length > 5;
-      if (displayMoreButton) products.splice(5, 1);
 
-      const productsToDisplay = Product.getProductsToDisplay(products);
+      const productsToDisplay = Product.getProductsToDisplay(
+        displayMoreButton ? products.slice(0, 5) : products
+      );
 
       //TODO: add a way to define settings for each rendered product, mainly in products-display.pug itself
       res.render("shop/main-page.pug", {
         pageTitle: "Main",
         csrfToken: req.csrfToken(),
         isLogged: req.session.isLogged,
+        username: req.session.isLogged ? req.user.username : null,
         prods: productsToDisplay,
         categories: Array.from({ length: 1 }),
         displayCategoryName: true,
@@ -25,7 +27,7 @@ module.exports.getMainPage = async (req, res) => {
       });
     })
     .catch((err) => {
-      // console.log(err);
+      console.log(err);
     });
 };
 
@@ -35,6 +37,7 @@ module.exports.getProduct = (req, res) => {
     res.render("product.pug", {
       pageTitle: targetProduct.title,
       isLogged: req.session.isLogged,
+      username: req.user.username,
       product: targetProduct,
     });
   });
@@ -49,10 +52,8 @@ module.exports.getCart = (req, res) => {
         res.render("user/cart.pug", {
           pageTitle: "Cart",
           isLogged: req.session.isLogged,
+          username: req.user.username,
           prods: products,
-          starSettings: {
-            fillAmounts: Array.from({ length: 5 }).fill("100%"),
-          },
         });
       });
     })
@@ -140,9 +141,20 @@ module.exports.postAddToCart = async (req, res) => {
     });
 };
 
+module.exports.getProfile = (req, res) => {
+  console.log(req.user);
+  res.render("user/profile.pug", {
+    pageTitle: `${req.user.username}`,
+    isLogged: req.session.isLogged,
+    username: req.user.username,
+    user: req.user,
+  });
+};
+
 module.exports.getOrders = (req, res) => {
   res.render("user/orders.pug", {
     pageTitle: "Orders",
     isLogged: req.session.isLogged,
+    username: req.user.username,
   });
 };
