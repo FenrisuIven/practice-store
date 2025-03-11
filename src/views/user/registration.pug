@@ -5,7 +5,7 @@ block styles
   link(rel="stylesheet", href="/css/buttons.css")
 
 block content
-  form.container.form(action="/register" method="POST")
+  form.container.form()#registration
     .form__input-field
       label(for="username") Username
       input#username(type="text" name="username")
@@ -16,7 +16,10 @@ block content
       label(for="password") Password
       input#password(type="text" name="password")
     .form__input-field
-      label(for="confirmPassword") Confirm password
-      input#confirmPassword(type="text" name="confirmPassword")
-    input(type="hidden" name="_csrf" value=(csrfToken))
-    button.button.outlined.signup(type="submit") Sign Up
+      label(for="passwordConfirm") Confirm password
+      input#passwordConfirm(type="text" name="passwordConfirm") 
+    input(type="hidden" name="_csrf" id="_csrf" value=(csrfToken))
+    button.button.outlined.signup(id="sign-up") Sign Up
+
+block scripts
+  script(src='/scripts/setup-validate-registration.js' type="module")
