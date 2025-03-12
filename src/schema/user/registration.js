@@ -1,6 +1,9 @@
 const zod = require("zod");
 
-const { maxLength, minLength } = require("../../../src/util/getErrorMessage");
+const {
+  maxLengthRegister: maxLength,
+  minLengthRegister: minLength,
+} = require("../../../src/util/getErrorMessage");
 
 module.exports.userRegistrationSchema = zod
   .object({

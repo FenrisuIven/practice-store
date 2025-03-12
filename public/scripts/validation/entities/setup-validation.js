@@ -11,20 +11,21 @@ tippy.setDefaultProps({
 
 const prepareFormData = (rawFormData) => {
   const formData = [...rawFormData].reduce((obj, input) => {
+    if (input instanceof HTMLButtonElement) return obj;
+
     const key = `${input.id}`;
     const value = input.value;
-
-    if (key === "sign-up") return obj;
 
     obj[key] = value;
     return obj;
   }, {});
-
+  console.log({ formData });
   return formData;
 };
 
 const fetchValidationResult = async (formData) => {
-  return await fetch(window.location.pathname, {
+  console.log("/validate");
+  return await fetch("/validate", {
     method: "POST",
     body: JSON.stringify(formData),
     headers: {
@@ -69,12 +70,15 @@ const handleSubmitButtonClick = async (buttonId, formId) => {
       targetField._tippy?.destroy();
     });
 
+  console.log(formData);
   const response = await fetchValidationResult(formData);
   const validationResult = await response.json();
 
   if (!validationResult.success) {
     highlightErrorFields(validationResult.error.issues);
     console.log(validationResult.error.issues);
+  } else {
+    form.submit();
   }
 };
 
