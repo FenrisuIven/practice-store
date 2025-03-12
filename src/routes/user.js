@@ -18,8 +18,7 @@ const {
   postRegistration,
 } = require("../controller/auth");
 
-const { userLoginSchema } = require("../schema/user/login");
-const { userRegistrationSchema } = require("../schema/user/registration");
+const { userSchema } = require("../schema/user/userSchema");
 
 router.get("/", getMainPage);
 router.get("/cart", getCart);
@@ -28,6 +27,10 @@ router.get("/login", getLogin);
 router.get("/logout", isAuth, getLogout);
 router.get("/register", getRegistration);
 router.get("/profile", isAuth, getProfile);
+
+router.post("/add-to-cart/", isAuth, postAddToCart);
+router.post("/login", postLogin);
+router.post("/register", postRegistration);
 
 const validateInput = (req, res, next, schema) => {
   const { _csrf, ...dataToCheck } = req.body;
@@ -43,16 +46,8 @@ const validateInput = (req, res, next, schema) => {
   res.status(200).send(validateRes);
 };
 
-router.post("/add-to-cart/", isAuth, postAddToCart);
-
-router.post("/login", postLogin);
-
-router.post("/register", (req, res, next) =>
-  validateInput(req, res, next, userRegistrationSchema)
-);
-
 router.post("/validate", (req, res, next) =>
-  validateInput(req, res, next, userLoginSchema)
+  validateInput(req, res, next, userSchema)
 );
 
 module.exports = router;
