@@ -9,6 +9,8 @@ html(lang="en")
     link(rel="stylesheet", href="/css/buttons.css")
     link(rel="stylesheet", href="/css/root.css")
     link(rel="stylesheet", href="/css/stars.css")
+    link(rel="stylesheet", href="https://unpkg.com/tippy.js@6/themes/translucent.css")
+    link(rel="stylesheet", href="https://unpkg.com/tippy.js@6/animations/shift-away.css")
     block styles
 
   body 
@@ -36,5 +38,7 @@ html(lang="en")
     main
       block content
 
+    script(src="https://unpkg.com/@popperjs/core@2")
+    script(src="https://unpkg.com/tippy.js@6")
     script(src="/scripts/setup-add-to-cart.js" type="module")
     block scripts
