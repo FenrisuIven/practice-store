@@ -25,14 +25,14 @@ app.use(
     store: new SequelizeStore({
       db: sequel,
       collection: "sessions",
-      checkExpirationInterval: 10 * 60 * 1000, // The interval at which to cleanup expired sessions in milliseconds.
+      checkExpirationInterval: 10 * 60 * 1000,
       expiration: 15 * 60 * 1000,
     }),
-    resave: true, //session will not be save on every request and response set
-    saveUninitialized: false, //ensure that session is not saved when no changes were made
+    resave: true,
+    saveUninitialized: false,
     cookie: {
       maxAge: 15 * 60 * 1000,
-    }, //set settings for this session's cookie
+    },
     unset: "destroy",
   })
 );
@@ -75,7 +75,8 @@ sequel
   .sync()
   .then(() => {
     app.listen(3000);
+    console.log("Server listening on: http://localhost:3000");
   })
   .catch((err) => {
-    // console.log(err);
+    console.log(`${err.parent.code} : ${err.toString()}`);
   });
