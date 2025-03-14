@@ -1,4 +1,7 @@
 const Product = require("../models/product");
+const {
+  getProductsToDisplay,
+} = require("../models/utils/getProductsToDisplay");
 
 exports.getAddProduct = (req, res) => {
   res.render("cabinet/add-product", {
@@ -56,13 +59,13 @@ exports.postEditProduct = (req, res) => {
   res.redirect("/cabinet/products");
 };
 
-exports.getAdminProducts = (req, res) => {
+exports.getCabinetProducts = (req, res) => {
   Product.findAll({
     where: {
       userId: req.user.id,
     },
   }).then((products) => {
-    const productsToDisplay = Product.getProductsToDisplay(products);
+    const productsToDisplay = getProductsToDisplay(products);
 
     res.render("cabinet/products-list.pug", {
       pageTitle: `${req.user.username}'s created products`,

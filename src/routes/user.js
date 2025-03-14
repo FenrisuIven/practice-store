@@ -1,13 +1,8 @@
 const { Router } = require("express");
 const router = Router();
 
-const {
-  getMainPage,
-  getCart,
-  getOrders,
-  postAddToCart,
-  getProfile,
-} = require("../controller/user");
+const { getMainPage, getOrders, getProfile } = require("../controller/user");
+const { getCart, postAddToCart } = require("../controller/cart");
 const {
   isAuth,
   getLogin,
@@ -18,7 +13,7 @@ const {
 } = require("../controller/auth");
 
 router.get("/", getMainPage);
-router.get("/cart", getCart);
+router.get("/cart", isAuth, getCart);
 router.get("/orders", isAuth, getOrders);
 router.get("/profile", isAuth, getProfile);
 router.get("/logout", isAuth, getLogout);
