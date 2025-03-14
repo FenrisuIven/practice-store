@@ -1,7 +1,7 @@
 const Product = require("../models/product");
 
 exports.getAddProduct = (req, res) => {
-  res.render("admin/add-product", {
+  res.render("cabinet/add-product", {
     pageTitle: "Add Product",
     csrfToken: req.csrfToken(),
     isLogged: req.session.isLogged,
@@ -32,7 +32,7 @@ exports.getEditProduct = (req, res) => {
     .then((products) => {
       const product = products[0];
       if (!product) throw Error("entry not found");
-      res.render("admin/edit-product.pug", {
+      res.render("cabinet/edit-product.pug", {
         pageTitle: "Edit",
         csrfToken: req.csrfToken(),
         buttonCaption: "Save Changes",
@@ -53,7 +53,7 @@ exports.postEditProduct = (req, res) => {
   }).catch((err) => {
     console.log(err);
   });
-  res.redirect("/admin/products");
+  res.redirect("/cabinet/products");
 };
 
 exports.getAdminProducts = (req, res) => {
@@ -62,10 +62,9 @@ exports.getAdminProducts = (req, res) => {
       userId: req.user.id,
     },
   }).then((products) => {
-    console.log(products);
     const productsToDisplay = Product.getProductsToDisplay(products);
-    console.log({ productsToDisplay });
-    res.render("admin/products-list.pug", {
+
+    res.render("cabinet/products-list.pug", {
       pageTitle: `${req.user.username}'s created products`,
       csrfToken: req.csrfToken(),
       isLogged: req.session.isLogged,

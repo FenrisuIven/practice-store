@@ -46,7 +46,6 @@ module.exports.getCart = (req, res) => {
   req.user
     .getCart()
     .then((cart) => {
-      console.log(cart);
       cart.getProducts().then((products) => {
         res.render("user/cart.pug", {
           pageTitle: "Cart",
@@ -136,12 +135,11 @@ module.exports.postAddToCart = async (req, res) => {
       );
     })
     .catch((err) => {
-      // console.log(err);
+      console.log(err);
     });
 };
 
 module.exports.getProfile = (req, res) => {
-  console.log(req.user);
   res.render("user/profile.pug", {
     pageTitle: `${req.user.username}`,
     isLogged: req.session.isLogged,

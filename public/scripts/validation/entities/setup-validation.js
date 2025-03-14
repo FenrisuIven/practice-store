@@ -19,13 +19,12 @@ const prepareFormData = (rawFormData) => {
     obj[key] = value;
     return obj;
   }, {});
-  console.log({ formData });
+
   return formData;
 };
 
 const fetchValidationResult = async (formData) => {
-  console.log("/validate");
-  return await fetch("/validate", {
+  return await fetch("/validate" + window.location.pathname, {
     method: "POST",
     body: JSON.stringify(formData),
     headers: {
@@ -63,20 +62,18 @@ const handleSubmitButtonClick = async (buttonId, formId) => {
   Object.keys(formData)
     .filter((elem) => elem !== "_csrf")
     .forEach((field) => {
-      console.log(field, document.getElementsByName(field)[0]);
       const targetField = document.getElementsByName(field)[0];
 
       targetField.className = "";
       targetField._tippy?.destroy();
     });
 
-  console.log(formData);
   const response = await fetchValidationResult(formData);
   const validationResult = await response.json();
 
   if (!validationResult.success) {
     highlightErrorFields(validationResult.error.issues);
-    console.log(validationResult.error.issues);
+    validationResult.error.issues.forEach((issue) => console.log(issue));
   } else {
     form.submit();
   }

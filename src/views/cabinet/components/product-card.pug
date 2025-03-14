@@ -1,7 +1,7 @@
 include ../../layout/components/star
 
 mixin productCard(product)
-  form.product-card.admin(action=(`/admin/edit-product/${product.id}`))
+  form.product-card.admin(action=(`/cabinet/edit-product/${product.id}`))
     .product-card__image.admin
       img(src=(product.imageUrl), alt=(product.title))
     a.product-card__title.admin #{product.title}

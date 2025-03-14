@@ -7,7 +7,7 @@ const {
   getAdminProducts,
   postAddProduct,
   postEditProduct,
-} = require("../controller/admin");
+} = require("../controller/cabinet");
 const { isAuth } = require("../controller/auth");
 
 router.get("/add-product", isAuth, getAddProduct);

@@ -7,7 +7,7 @@ const csrf = require("csurf");
 const rootPath = require("./src/util/rootPath");
 const userRoutes = require("./src/routes/user");
 const validateRoutes = require("./src/routes/validate");
-const adminRoutes = require("./src/routes/admin");
+const cabinetRoutes = require("./src/routes/cabinet");
 
 const sequel = require("./src/util/database");
 const Product = require("./src/models/product");
@@ -59,9 +59,9 @@ app.use((req, res, next) => {
   }
 });
 
-app.use("/", userRoutes);
-app.use("/admin", adminRoutes);
 app.use("/validate", validateRoutes);
+app.use("/", userRoutes);
+app.use("/cabinet", cabinetRoutes);
 
 Product.belongsTo(User, {
   constrains: true,

@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 
 module.exports.isAuth = (req, res, next) => {
   if (!req.session.isLogged) {
-    console.log("not authed, redir");
     return res.redirect("/");
   }
   next();
