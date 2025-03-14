@@ -20,11 +20,8 @@ exports.postAddProduct = (req, res) => {
       category,
       rating: 0,
     })
-    .then((res) => {
-      // console.log(res);
-    })
     .catch((err) => {
-      // console.log(err);
+      console.log(err);
     });
   res.redirect("/");
 };
@@ -44,7 +41,7 @@ exports.getEditProduct = (req, res) => {
       });
     })
     .catch((err) => {
-      // console.log(err);
+      console.log(err);
     });
 };
 
@@ -54,7 +51,7 @@ exports.postEditProduct = (req, res) => {
       id: req.params.productId,
     },
   }).catch((err) => {
-    // console.log(err);
+    console.log(err);
   });
   res.redirect("/admin/products");
 };

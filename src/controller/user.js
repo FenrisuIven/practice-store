@@ -14,7 +14,6 @@ module.exports.getMainPage = async (req, res) => {
         displayMoreButton ? products.slice(0, 5) : products
       );
 
-      //TODO: add a way to define settings for each rendered product, mainly in products-display.pug itself
       res.render("shop/main-page.pug", {
         pageTitle: "Main",
         csrfToken: req.csrfToken(),
