@@ -1,28 +1,28 @@
 include ../../layout/components/star
 
 mixin productCard(product)
-  form.product-card.admin(action=(`/cabinet/edit-product/${product.id}`))
-    .product-card__image.admin
+  form.product-card.cabinet(action=(`/cabinet/edit-product/${product.id}`))
+    .product-card__image.cabinet
       img(src=(product.imageUrl), alt=(product.title))
-    a.product-card__title.admin #{product.title}
-    span.product-card__price.admin #{Number(product.price).toLocaleString('en-US', {style: 'currency', currency: 'USD'})}
+    a.product-card__title.cabinet #{product.title}
+    span.product-card__price.cabinet #{Number(product.price).toLocaleString('en-US', {style: 'currency', currency: 'USD'})}
 
-    div.product-card__rating.admin(data-rating-value=(product.rating))
+    div.product-card__rating.cabinet(data-rating-value=(product.rating))
       - for(let i = 0; i < 5; i++) {
         + star() 
       - }
 
-    .product-card__details.admin
+    .product-card__details.cabinet
       if(displayDescription)
-        span.product-card__description.admin #{product.description}
-      .product-card__timestamps.admin
+        span.product-card__description.cabinet #{product.description}
+      .product-card__timestamps.cabinet
         span Created at:
-        span.product-card_timestamp-posted.admin #{product.creationDate}
-        span.product-card_timestamp-posted.admin #{product.creationTime}
-      .product-card__timestamps.admin
+        span.product-card_timestamp-posted.cabinet #{product.creationDate}
+        span.product-card_timestamp-posted.cabinet #{product.creationTime}
+      .product-card__timestamps.cabinet
         span Last updated:
-        span.product-card_timestamp-posted.admin #{product.updateDate}
-        span.product-card_timestamp-posted.admin #{product.updateTime}
-    .product-card__actions.admin
+        span.product-card_timestamp-posted.cabinet #{product.updateDate}  
+        span.product-card_timestamp-posted.cabinet #{product.updateTime}
+    .product-card__actions.cabinet
       button.button.edit-btn(type="submit" data-product-id=(product.id)) Edit
       button.button.delete-btn(data-product-id=(product.id)) Delete
