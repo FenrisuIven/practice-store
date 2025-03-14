@@ -1,3 +1,5 @@
+const Product = require("../models/product");
+
 module.exports.getCart = (req, res) => {
   req.user
     .getCart()
