@@ -30,7 +30,7 @@ module.exports.postLogin = (req, res) => {
       if (passwordsMatch) {
         req.session.isLogged = true;
         req.session.user = user;
-        return req.session.save((err) => {
+        return req.session.save(() => {
           res.redirect("/");
         });
       }

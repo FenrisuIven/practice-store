@@ -24,7 +24,7 @@ module.exports.getMainPage = async (req, res) => {
         isLogged: req.session.isLogged,
         username: req.session.isLogged ? req.user.username : null,
         prods: productsToDisplay,
-        categories: Array.from({ length: 1 }),
+        categories: ["Technology"],
         displayCategoryName: true,
         displayMoreButton,
       });

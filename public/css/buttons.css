@@ -53,12 +53,29 @@
 }
 
 .button.buy-btn {
+  padding: 0.2rem;
+  width: 35%;
   display: block;
   border: 1px solid var(--root-gray);
   content: "";
+  place-self: end;
+
+  background: none;
+  border: none;
+
+  svg {
+    stroke: var(--root-red);
+  }
 
   &&:hover {
-    background-color: rgba(var(--rgb-root-gray), 0.2);
+    svg {
+      stroke: var(--root-yellow);
+    }
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
   }
 }
 

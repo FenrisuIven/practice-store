@@ -54,7 +54,7 @@ const highlightErrorFields = (validationResponse) => {
   });
 };
 
-const handleSubmitButtonClick = async (buttonId, formId) => {
+const handleSubmitButtonClick = async (formId) => {
   const form = document.getElementById(formId);
 
   const formData = prepareFormData(form);
@@ -86,5 +86,5 @@ export function setupSubmitButtonClick(buttonId, formId) {
 
   document
     .getElementById(buttonId)
-    .addEventListener("click", () => handleSubmitButtonClick(buttonId, formId));
+    .addEventListener("click", () => handleSubmitButtonClick(formId));
 }

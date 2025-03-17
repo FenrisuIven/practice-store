@@ -9,7 +9,7 @@ module.exports.getCart = (req, res) => {
           pageTitle: "Cart",
           isLogged: req.session.isLogged,
           username: req.user.username,
-          prods: products,
+          products,
         });
       });
     })
