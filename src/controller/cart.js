@@ -1,15 +1,19 @@
 const Product = require("../models/product");
+const {
+  getProductsToDisplay,
+} = require("../models/utils/getProductsToDisplay");
 
 module.exports.getCart = (req, res) => {
   req.user
     .getCart()
     .then((cart) => {
       cart.getProducts().then((products) => {
+        const productsToDisplay = getProductsToDisplay(products);
         res.render("user/cart.pug", {
           pageTitle: "Cart",
           isLogged: req.session.isLogged,
           username: req.user.username,
-          products,
+          products: productsToDisplay,
         });
       });
     })
